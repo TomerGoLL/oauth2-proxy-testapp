@@ -1,0 +1,18 @@
+{
+  "name": "o2p-express-app",
+  "version": "1.0.0",
+  "description": "Simple Express.js application with ES modules",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "keywords": ["express", "nodejs", "es-modules"],
+  "author": "",
+  "license": "MIT"
+}

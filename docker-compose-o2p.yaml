@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  oauth2-proxy:
+    image: quay.io/oauth2-proxy/oauth2-proxy:v7.12.0-arm64
+    container_name: o2p
+    ports:
+      - "4180:4180"
+    environment:
+      OAUTH2_PROXY_CLIENT_ID: "o2p-test"
+      OAUTH2_PROXY_CLIENT_SECRET: "9lJ908DUlV3C0zeRphQRZyoWoQL1GoYx"
+      OAUTH2_PROXY_EMAIL_DOMAINS: "*"
+      OAUTH2_PROXY_COOKIE_SECRET: "nGu-eJUodMfMCBAnvhHcJOQXCvk69VBxBYHUIZ4KKCI="
+      OAUTH2_PROXY_PROVIDER: "keycloak-oidc"
+      OAUTH2_PROXY_OIDC_ISSUER_URL: "http://host.docker.internal:8080/realms/noder-oidc"
+      OAUTH2_PROXY_PASS_ACCESS_TOKEN: "true"
+      OAUTH2_PROXY_PASS_AUTHORIZATION_HEADER: "true"
+      OAUTH2_PROXY_HTTP_ADDRESS: "http://0.0.0.0:4180"
+      OAUTH2_PROXY_COOKIE_SECURE: "false"
+      OAUTH2_PROXY_UPSTREAMS: "http://host.docker.internal:3000"
+      OAUTH2_PROXY_INSECURE_OIDC_ALLOW_UNVERIFIED_EMAIL: "true"
+      OAUTH2_PROXY_SKIP_PROVIDER_BUTTON: "true"
+    restart: unless-stopped

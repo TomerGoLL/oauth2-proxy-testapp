@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>O2P testapp by Tomer</title>
+    <script src="htmx.min.js"></script>
+    <link rel="icon" href="icons/oauth2-proxy.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>SSO test app</h1>
+        <p>Using oauth2-proxy</p>
+      </div>
+
+      <div class="tokens-grid">
+        <div class="token-panel">
+          <div class="token-header">
+            <div class="token-title">
+              <span class="token-badge access"></span>
+              Access Token
+            </div>
+          </div>
+          <div class="token-content">
+            <div hx-get="/access_token" hx-trigger="load" hx-target="this">
+              <div class="loading">
+                <div class="spinner"></div>
+                Loading...
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="token-panel">
+          <div class="token-header">
+            <div class="token-title">
+              <span class="token-badge id"></span>
+              ID Token
+            </div>
+          </div>
+          <div class="token-content">
+            <div hx-get="/id_token" hx-trigger="load" hx-target="this">
+              <div class="loading">
+                <div class="spinner"></div>
+                Loading...
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sign-out-container">
+        <button class="sign-out-btn" hx-get="/sign_out">
+          <svg
+            class="sign-out-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16,17 21,12 16,7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          Sign Out
+        </button>
+      </div>
+    </div>
+    <script>
+      document.body.addEventListener('htmx:afterSwap', () => {
+        const copyButtons = document.querySelectorAll('.copy-btn');
+        copyButtons.forEach((button) => {
+          button.disabled = false;
+          button.addEventListener('click', (event) => {
+            const jsonText =
+              button.parentElement.querySelector('.json-content').textContent;
+            navigator.clipboard.writeText(jsonText).then(() => {
+              button.textContent = 'Copied!';
+              button.classList.add('copied');
+              setTimeout(() => {
+                button.textContent = 'Copy';
+                button.classList.remove('copied');
+              }, 1000);
+            });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
