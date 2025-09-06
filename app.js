@@ -22,7 +22,7 @@ app.get('/access_token', (req, res) => {
   } catch (error) {
     return sendErrorHtmlResponse(
       res,
-      `Failed to parse the jwt with error: ${error.message}`
+      `Failed to parse the token with error: ${error.message}`
     );
   }
 });
@@ -50,7 +50,7 @@ app.get('/id_token', (req, res) => {
   } catch (error) {
     return sendErrorHtmlResponse(
       res,
-      `Failed to parse the jwt with error: ${error.message}`
+      `Failed to parse the token with error: ${error.message}`
     );
   }
 });
