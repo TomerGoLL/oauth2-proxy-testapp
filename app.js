@@ -18,7 +18,7 @@ app.get('/access_token', (req, res) => {
       );
     }
 
-    return sendTokenHtmlResponse(res, decoded);
+    return sendTokenHtmlResponse(res, accessToken);
   } catch (error) {
     return sendErrorHtmlResponse(
       res,
@@ -46,7 +46,7 @@ app.get('/id_token', (req, res) => {
       );
     }
 
-    return sendTokenHtmlResponse(res, decoded);
+    return sendTokenHtmlResponse(res, idToken);
   } catch (error) {
     return sendErrorHtmlResponse(
       res,
