@@ -18,8 +18,6 @@ app.get('/access_token', (req, res) => {
       );
     }
 
-    const decoded = jwt.decode(accessToken, { complete: true });
-
     return sendTokenHtmlResponse(res, decoded);
   } catch (error) {
     return sendErrorHtmlResponse(
@@ -48,8 +46,6 @@ app.get('/id_token', (req, res) => {
       );
     }
 
-    const decoded = jwt.decode(idToken, { complete: true });
-
     return sendTokenHtmlResponse(res, decoded);
   } catch (error) {
     return sendErrorHtmlResponse(
@@ -65,12 +61,14 @@ app.get('/sign_out', (req, res) => {
   return res.send();
 });
 
-function sendTokenHtmlResponse(res, token) {
-  if (!token) {
+function sendTokenHtmlResponse(res, jwtToken) {
+  const decodedJwt = jwt.decode(jwtToken, { complete: true });
+
+  if (!decodedJwt) {
     return sendErrorHtmlResponse(res, 'Invalid jwt');
   }
 
-  const formattedToken = formatJSON(token);
+  const formattedToken = formatJSON(decodedJwt);
   const highlightedToken = highlightJSON(formattedToken);
 
   return res.send(`
